@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { Loader2 } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { useChat } from '@/hooks/use-chat';
