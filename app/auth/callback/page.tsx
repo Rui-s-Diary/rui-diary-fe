@@ -1,7 +1,5 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
@@ -31,10 +29,16 @@ function AuthCallbackContent() {
 
     if (accessTokenFromHash || refreshTokenFromHash) {
       if (accessTokenFromHash) {
-        localStorage.setItem('access_token', accessTokenFromHash);
+        // Decode URL-encoded token
+        const decodedToken = decodeURIComponent(accessTokenFromHash);
+        localStorage.setItem('access_token', decodedToken);
+        console.log('Access token saved:', decodedToken.substring(0, 20) + '...');
       }
       if (refreshTokenFromHash) {
-        localStorage.setItem('refresh_token', refreshTokenFromHash);
+        // Decode URL-encoded token
+        const decodedToken = decodeURIComponent(refreshTokenFromHash);
+        localStorage.setItem('refresh_token', decodedToken);
+        console.log('Refresh token saved');
       }
 
       const cleanUrl = window.location.origin + window.location.pathname;

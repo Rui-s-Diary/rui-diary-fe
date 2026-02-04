@@ -24,7 +24,7 @@ export function ChatMessage({ message, showAvatar }: ChatMessageProps) {
         {showAvatar && (
           <div className={`flex items-center gap-2 mb-1 ${isBot ? '' : 'justify-end'}`}>
             <span className="text-xs font-medium text-gray-700">
-              {isBot ? 'Rui' : 'Bạn'}
+              {isBot ? 'Rui' : 'You'}
             </span>
             <span className="text-xs text-gray-400">
               {formatTime(message.timestamp)}

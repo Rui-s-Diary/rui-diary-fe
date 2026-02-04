@@ -1,6 +1,8 @@
 export const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('vi-VN', {
+  const localDate = new Date(date);
+  return localDate.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   });
 };

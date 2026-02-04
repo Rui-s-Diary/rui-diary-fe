@@ -1,9 +1,28 @@
 import { API_BASE_URL } from '@/lib/config';
 import {
   LoginPayload,
+  RegisterPayload,
   TokenResponse,
+  UserResponse,
   GoogleOAuthResponse,
 } from '@/types/auth';
+
+export async function register(payload: RegisterPayload): Promise<UserResponse> {
+  const res = await fetch(`${API_BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error((error as { detail?: string }).detail || 'Registration failed');
+  }
+
+  return res.json();
+}
 
 export async function login(payload: LoginPayload): Promise<TokenResponse> {
   const res = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -85,4 +104,23 @@ export async function loginWithGoogle() {
     console.error('Google login error:', error);
     throw error;
   }
+}
+
+export async function getCurrentUser(accessToken: string): Promise<UserResponse> {
+  const res = await fetch(`${API_BASE_URL}/auth/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(
+      (error as { detail?: string }).detail || 'Failed to get user info'
+    );
+  }
+
+  return res.json();
 }

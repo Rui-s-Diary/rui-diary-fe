@@ -26,7 +26,7 @@ export function LoginForm() {
     try {
       const data = await login({ email, password });
       
-      // Lưu tokens vào localStorage
+      // Save tokens to localStorage
       if (data.access_token) {
         localStorage.setItem('access_token', data.access_token);
       }
@@ -34,11 +34,11 @@ export function LoginForm() {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
 
-      // Redirect đến màn hình chat
+      // Redirect to chat screen
       console.log('Login success:', data);
       router.push('/chat');
     } catch (err: any) {
-      setError(err.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+      setError(err.message || 'Login failed. Please try again.');
       console.error('Login error:', err);
     } finally {
       setIsLoading(false);
@@ -51,9 +51,9 @@ export function LoginForm() {
 
     try {
       await loginWithGoogle();
-      // Browser sẽ redirect đến Google OAuth, sau đó về /auth/callback
+      // Browser will redirect to Google OAuth, then return to /auth/callback
     } catch (err: any) {
-      setError(err.message || 'Đăng nhập Google thất bại. Vui lòng thử lại.');
+      setError(err.message || 'Google login failed. Please try again.');
       setIsGoogleLoading(false);
       console.error('Google login error:', err);
     }
@@ -106,7 +106,7 @@ export function LoginForm() {
         {isGoogleLoading ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Đang chuyển hướng...</span>
+            <span>Redirecting...</span>
           </>
         ) : (
           <>
@@ -230,7 +230,7 @@ export function LoginForm() {
         <p className="text-gray-700">
           Not Registered Yet?{' '}
           <a
-            href="#"
+            href="/register"
             className="text-purple-600 hover:text-purple-700 font-semibold transition-colors"
           >
             Create an account

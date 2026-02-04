@@ -1,7 +1,5 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import { Loader2 } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { useChat } from '@/hooks/use-chat';
@@ -13,7 +11,7 @@ export default function ChatPage() {
     redirectIfFound: false,
   });
 
-  const { messages, input, setInput, isSending, sendMessage } = useChat();
+  const { messages, input, setInput, isSending, isLoadingHistory, sendMessage } = useChat();
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
@@ -21,7 +19,7 @@ export default function ChatPage() {
     window.location.href = '/';
   };
 
-  if (isLoading) {
+  if (isLoading || isLoadingHistory) {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-50">
         <Loader2 className="w-8 h-8 animate-spin text-violet-500" />

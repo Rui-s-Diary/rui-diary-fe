@@ -5,7 +5,7 @@ export const isDev = NODE_ENV === 'development';
 
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ??
-  (isProd ? 'https://api.example.com' : 'http://localhost:3000');
+  (isProd ? 'https://api.example.com' : 'http://localhost:8000');
 
 export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 export const FRONTEND_URL =
