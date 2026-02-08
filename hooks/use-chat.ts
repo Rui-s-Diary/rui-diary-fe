@@ -96,13 +96,13 @@ export function useChat() {
         setConversationId(response.conversation_id);
       }
 
-      const botMessage: Message = {
-        id: response.ai_response.id,
+      const botMessages: Message[] = response.ai_responses.map((aiResponse) => ({
+        id: aiResponse.id,
         role: 'bot',
-        content: response.ai_response.content,
-        timestamp: new Date(response.ai_response.created_at),
-      };
-      setMessages((prev) => [...prev, botMessage]);
+        content: aiResponse.content,
+        timestamp: new Date(aiResponse.created_at),
+      }));
+      setMessages((prev) => [...prev, ...botMessages]);
     } catch (error: any) {
       const errorMessage: Message = {
         id: Date.now() + 1,

@@ -22,7 +22,7 @@ export type MessageResponse = {
 
 export type SendMessageResponse = {
   user_message: MessageResponse;
-  ai_response: MessageResponse;
+  ai_responses: MessageResponse[];
   conversation_id: number;
 };
 
